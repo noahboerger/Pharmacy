@@ -11,29 +11,29 @@ public class Drug implements Comparable<Drug> {
     String category;
 
     public Drug(String label, Date expirationDate, String category) {
-        if(isLabelCorrect(label)) {
+        if (isLabelCorrect(label)) {
             this.id = UUID.randomUUID();
             this.label = label;
             this.expirationDate = expirationDate;
             this.category = category;
-        }  else {
+        } else {
             return;
         }
     }
 
     private boolean isLabelCorrect(String label) {
-        if(label.length() != 5) {
+        if (label.length() != 5) {
             return false;
         }
         char firstChar = label.charAt(0);
         char secondChar = label.charAt(1);
-        if(!(firstChar >= 'A' && firstChar <= 'Z') && (secondChar >= 'A' && secondChar <= 'Z')) {
+        if (!(firstChar >= 'A' && firstChar <= 'Z') && (secondChar >= 'A' && secondChar <= 'Z')) {
             return false;
         }
-        String numberString = label.substring(2,5);
+        String numberString = label.substring(2, 5);
         try {
             Integer.parseInt(numberString);
-        }catch (NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
             return false;
         }
         return true;
@@ -73,15 +73,15 @@ public class Drug implements Comparable<Drug> {
 
     @Override
     public int compareTo(Drug drug) {
-        if(drug == null) {
+        if (drug == null) {
 
             return 1;
         }
-        if(!label.equals(drug.label)) {
+        if (!label.equals(drug.label)) {
             return label.compareTo(drug.label);
-        } else if(expirationDate != null && !expirationDate.equals(drug.expirationDate)) {
+        } else if (expirationDate != null && !expirationDate.equals(drug.expirationDate)) {
             return expirationDate.compareTo(drug.expirationDate);
-        }else {
+        } else {
             return 0;
         }
     }
@@ -89,5 +89,13 @@ public class Drug implements Comparable<Drug> {
     @Override
     public String toString() {
         return "Drug[id=" + id + " label=" + label + " expirationDate=" + expirationDate + " category=" + category + "]";
+    }
+
+    public boolean checkExpirationDate() {
+        if (expirationDate.before(new Date(System.currentTimeMillis() + 10 * 60 * 60 * 24 * 3))) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

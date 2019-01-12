@@ -7,16 +7,63 @@ import java.util.*;
 
 public class SubCubby {
     Drug[] drugs;
+    Cubby listeners;
 
 
-    public SubCubby() {
+    public SubCubby(Cubby cubby) {
         drugs = new Drug[10];
+        listeners = cubby;
+    }
+
+    public void check() {
+        checkDoubleDrugs();
+        checkDates();
+        checkSubCubby();
+    }
+
+    private void checkSubCubby() {
+        if(drugs[4] == null) {
+            informListener(Reason.SUB_CUBBY_LOWER_50, this);
+        }
+    }
+
+    private void checkDoubleDrugs() {
+        String actDrugLabel = drugs[0].getLabel();
+        boolean second = false;
+        for (int i = 1; i < numberOfDrugs(); i++) {
+            if(actDrugLabel.equals(drugs[i].getLabel())) {
+                second = true;
+            } else {
+                if(second) {
+                    second = false;
+                    actDrugLabel = drugs[i].getLabel();
+                } else {
+                    informListener(Reason.LAST_ONE, drugs[i - 1]);
+                }
+            }
+        }
+    }
+
+    private void checkDates() {
+        for(Drug drug : drugs) {
+            if(drug == null) {
+                break;
+            }
+            if(!drug.checkExpirationDate()) {
+                informListener(Reason.EXPIRATION_DATE, drug);
+            }
+        }
+    }
+
+    private void informListener(Reason reason, Object object) {
+        listeners.receive(reason, object);
     }
 
     public boolean add(Drug drug) {
         for (int i = 0; i < drugs.length; i++) {
             if (drugs[i] == null) {
                 drugs[i] = drug;
+                sort();
                 return true;
             }
         }
@@ -40,9 +87,45 @@ public class SubCubby {
 
 
     private void sort() {
-        Arrays.sort(drugs);
+       for(int i = 0; i < drugs.length; i++) {
+           if(drugs[i] == null) {
+               for(int j = (i +1); j < drugs.length; j++) {
+                   drugs[i] = drugs[j];
+               }
+           }
+       }
+       Drug[] sorted = new Drug[numberOfDrugs()];
+       for(int i = 0; i < sorted.length; i++) {
+           sorted[i] = drugs[i];
+       }
+       Arrays.sort(sorted);
+        for(int i = 0; i < sorted.length; i++) {
+            drugs[i] = sorted[i];
+        }
     }
+
+    public int numberOfDrugs() {
+        for(int i = 0; i < drugs.length;i++) {
+            if(drugs[i] == null) {
+                return i;
+            }
+        }
+        return 10;
+    }
+
     public IIterator iteratorSubCuby() {
         return new IteratorSubFx(this);
+    }
+
+    public Drug remove(String drugLabel) {
+        for (int i = 0; i < drugs.length; i++) {
+            if (drugs[i].getLabel() == drugLabel) {
+                Drug returnDrug = drugs[i];
+                drugs[i] = null;
+                sort();
+                return returnDrug;
+            }
+        }
+        return null;
     }
 }

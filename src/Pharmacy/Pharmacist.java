@@ -11,7 +11,7 @@ public class Pharmacist implements ICabinetListener {
     }
 
     @Override
-    public void receive(Reason reason) {
-
+    public void receive(Reason reason, Object object) {
+        System.out.println("Received" + reason + " " + object);
     }
 }

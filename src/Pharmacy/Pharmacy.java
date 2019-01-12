@@ -60,8 +60,7 @@ public class Pharmacy {
                     stringBuilder.append(character);
                 }
                 String randomDrugLabelString = stringBuilder.toString();
-                Date randomDate = new Date(Math.abs(System.currentTimeMillis() - random.nextLong()));
-                ;
+                Date randomDate = new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt())));
                 String randomCategory;
                 switch (Math.abs(random.nextInt()) % 3) {
                     case 0:
@@ -78,6 +77,10 @@ public class Pharmacy {
                         break;
                 }
                 testCabinet.add(new Drug(randomDrugLabelString, randomDate, randomCategory));
+                testCabinet.add(new Drug(randomDrugLabelString, new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt()))), randomCategory));
+                testCabinet.add(new Drug(randomDrugLabelString, new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt()))), randomCategory));
+                testCabinet.add(new Drug(randomDrugLabelString, new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt()))), randomCategory));
+                testCabinet.add(new Drug(randomDrugLabelString, new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt()))), randomCategory));
             }
         }
         return testCabinet;

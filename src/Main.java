@@ -6,16 +6,19 @@ import Cabinet.SubCubby;
 import Cabinet.Cubby;
 import Pharmacy.Pharmacy;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Main {
     public static void main(String args[]) {
+
 
         Pharmacy ph = new Pharmacy("Test");
         IIterator it = ph.getCabinet().iteratorAll();
         while (it.hasNext()) {
             System.out.println(it.next());
         }
+        ph.getCabinet().check();
 
         /*Cabinet cabinet = new Cabinet();
         cabinet.add(new Drug("AA293", new Date(1, 2, 3), "Test"));

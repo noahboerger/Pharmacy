@@ -5,22 +5,19 @@ import Iterator.IteratorAll;
 import Iterator.IteratorFx;
 import Pharmacy.ICabinetListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Cabinet {
     //Hat cubys
-    Map<Character, Cubby> cubbyMap;
-    List<ICabinetListener> listeners;
+    private Map<Character, Cubby> cubbyMap;
+    private List<ICabinetListener> listeners;
 
 
     public Cabinet() {
         listeners = new ArrayList<>();
-        cubbyMap = new HashMap();
+        cubbyMap = new HashMap<>();
         for (char c = 'A'; c <= 'Z'; c++) {
-            cubbyMap.put(c, new Cubby());
+            cubbyMap.put(c, new Cubby(this));
         }
     }
 
@@ -36,8 +33,11 @@ public class Cabinet {
         return cubbyMap.get(key).add(drug);
     }
 
-    public void remove(Drug drug) {
-
+    public Drug remove(String drugLabel) {
+        if(!cubbyMap.containsKey(drugLabel.charAt(0))) {
+            return null;
+        }
+        return cubbyMap.get(drugLabel.charAt(0)).remove(drugLabel);
     }
 
     public void registerListener(ICabinetListener listener) {
@@ -63,11 +63,13 @@ public class Cabinet {
         return iteratorFx;
     }
 
-    private void informListeners(Reason reason) {
+    private void informListeners(Reason reason, Object object) {
         for (ICabinetListener listener : listeners) {
-            listener.receive(reason);
+            listener.receive(reason, object);
         }
     }
+
+
 
     public boolean isEmpty() {
         if (cubbyMap.isEmpty()) {
@@ -79,5 +81,15 @@ public class Cabinet {
             }
         }
         return true;
+    }
+
+    public void receive(Reason reason, Object object) {
+        informListeners(reason, object);
+    }
+
+    public void check() {
+        for(Character key: cubbyMap.keySet()) {
+            cubbyMap.get(key).check();
+        }
     }
 }

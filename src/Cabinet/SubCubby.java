@@ -8,15 +8,16 @@ import Iterator.IteratorSubFx;
 import java.util.*;
 
 public class SubCubby implements ISubCubby {
-    Drug[] drugs;
-    Cubby listeners;
+    private Drug[] drugs;
+    private Cubby listener;
 
 
     public SubCubby(Cubby cubby) {
         drugs = new Drug[10];
-        listeners = cubby;
+        listener = cubby;
     }
 
+    @Override
     public void check() {
         checkDoubleDrugs();
         checkDates();
@@ -24,22 +25,22 @@ public class SubCubby implements ISubCubby {
     }
 
     private void checkSubCubby() {
-        if(drugs[4] == null) {
+        if (drugs[4] == null) {
             informListener(Reason.SUB_CUBBY_LOWER_50, this);
         }
     }
 
     private void checkDoubleDrugs() {
-        if(numberOfDrugs() == 0) {
+        if (numberOfDrugs() == 0) {
             return;
         }
         String actDrugLabel = drugs[0].getLabel();
         boolean second = false;
         for (int i = 1; i < numberOfDrugs(); i++) {
-            if(actDrugLabel.equals(drugs[i].getLabel())) {
+            if (actDrugLabel.equals(drugs[i].getLabel())) {
                 second = true;
             } else {
-                if(second) {
+                if (second) {
                     second = false;
                     actDrugLabel = drugs[i].getLabel();
                 } else {
@@ -50,20 +51,21 @@ public class SubCubby implements ISubCubby {
     }
 
     private void checkDates() {
-        for(Drug drug : drugs) {
-            if(drug == null) {
+        for (Drug drug : drugs) {
+            if (drug == null) {
                 break;
             }
-            if(!drug.checkExpirationDate()) {
+            if (!drug.checkExpirationDate()) {
                 informListener(Reason.EXPIRATION_DATE, drug);
             }
         }
     }
 
     private void informListener(Reason reason, Object object) {
-        listeners.receive(reason, object);
+        listener.receive(reason, object);
     }
 
+    @Override
     public boolean add(Drug drug) {
         for (int i = 0; i < drugs.length; i++) {
             if (drugs[i] == null) {
@@ -75,6 +77,7 @@ public class SubCubby implements ISubCubby {
         return false;
     }
 
+    @Override
     public Drug getDrug(int index) {
         if (index >= 0 && index <= 9) {
             return drugs[index];
@@ -83,6 +86,7 @@ public class SubCubby implements ISubCubby {
         }
     }
 
+    @Override
     public Drug removeDrug(int index) {
         if (index >= 0 && index <= 9) {
             Drug removeDrug = drugs[index];
@@ -94,6 +98,7 @@ public class SubCubby implements ISubCubby {
         }
     }
 
+    @Override
     public boolean isEmpty() {
         if (drugs[0] == null) {
             return true;
@@ -103,36 +108,39 @@ public class SubCubby implements ISubCubby {
 
 
     private void sort() {
-       for(int i = 0; i < drugs.length; i++) {
-           if(drugs[i] == null) {
-               for(int j = (i + 1); j < drugs.length; j++) {
-                   drugs[j - 1] = drugs[j];
-               }
-           }
-       }
-       Drug[] sorted = new Drug[numberOfDrugs()];
-       for(int i = 0; i < sorted.length; i++) {
-           sorted[i] = drugs[i];
-       }
-       Arrays.sort(sorted);
-        for(int i = 0; i < sorted.length; i++) {
+        for (int i = 0; i < drugs.length; i++) {
+            if (drugs[i] == null) {
+                for (int j = (i + 1); j < drugs.length; j++) {
+                    drugs[j - 1] = drugs[j];
+                }
+            }
+        }
+        Drug[] sorted = new Drug[numberOfDrugs()];
+        for (int i = 0; i < sorted.length; i++) {
+            sorted[i] = drugs[i];
+        }
+        Arrays.sort(sorted);
+        for (int i = 0; i < sorted.length; i++) {
             drugs[i] = sorted[i];
         }
     }
 
+    @Override
     public int numberOfDrugs() {
-        for(int i = 0; i < drugs.length;i++) {
-            if(drugs[i] == null) {
+        for (int i = 0; i < drugs.length; i++) {
+            if (drugs[i] == null) {
                 return i;
             }
         }
         return 10;
     }
 
-    public IIterator iteratorSubCuby() {
+    @Override
+    public IIterator iteratorSubCubby() {
         return new IteratorSubFx(this);
     }
 
+    @Override
     public Drug remove(String drugLabel) {
         for (int i = 0; i < drugs.length; i++) {
             if (drugs[i].getLabel() == drugLabel) {

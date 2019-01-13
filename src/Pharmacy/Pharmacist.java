@@ -4,7 +4,7 @@ import Base.Reason;
 
 public class Pharmacist implements ICabinetListener, IPharmacist {
 
-    String name;
+    private String name;
 
     public Pharmacist(String name) {
         this.name = name;
@@ -12,13 +12,15 @@ public class Pharmacist implements ICabinetListener, IPharmacist {
 
     @Override
     public void receive(Reason reason, Object object) {
-        System.out.println("Received" + reason + " " + object);
+        System.out.println("Received=(" + reason + " " + object + ")");
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

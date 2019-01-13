@@ -22,10 +22,12 @@ public class Cabinet implements ICabinet {
         }
     }
 
+    @Override
     public ICubby getCubby(char key) {
         return cubbyMap.get(key);
     }
 
+    @Override
     public boolean add(Drug drug) {
         if (drug.getLabel() == null) {
             return false;
@@ -34,35 +36,31 @@ public class Cabinet implements ICabinet {
         return cubbyMap.get(key).add(drug);
     }
 
+    @Override
     public Drug remove(String drugLabel) {
-        if(!cubbyMap.containsKey(drugLabel.charAt(0))) {
+        if (!cubbyMap.containsKey(drugLabel.charAt(0))) {
             return null;
         }
         check();
         return cubbyMap.get(drugLabel.charAt(0)).remove(drugLabel);
     }
 
+    @Override
     public void registerListener(ICabinetListener listener) {
         listeners.add(listener);
     }
 
+    @Override
     public void unregisterListener(ICabinetListener listener) {
         if (listeners.contains(listener)) {
             listeners.remove(listener);
         }
     }
 
+    @Override
     public IIterator iteratorAll() {
         IIterator iteratorAll = new IteratorAll(this);
         return iteratorAll;
-    }
-
-    public IIterator iteratorFx(char cubbyLabel) {
-        if (!cubbyMap.containsKey(cubbyLabel)) {
-            return null;
-        }
-        IIterator iteratorFx = new IteratorFx(cubbyMap.get(cubbyLabel));
-        return iteratorFx;
     }
 
     private void informListeners(Reason reason, Object object) {
@@ -71,8 +69,7 @@ public class Cabinet implements ICabinet {
         }
     }
 
-
-
+    @Override
     public boolean isEmpty() {
         if (cubbyMap.isEmpty()) {
             return true;
@@ -85,12 +82,14 @@ public class Cabinet implements ICabinet {
         return true;
     }
 
+    @Override
     public void receive(Reason reason, Object object) {
         informListeners(reason, object);
     }
 
+    @Override
     public void check() {
-        for(Character key: cubbyMap.keySet()) {
+        for (Character key : cubbyMap.keySet()) {
             cubbyMap.get(key).check();
         }
     }

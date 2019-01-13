@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Drug implements Comparable<Drug> {
-    UUID id;
-    String label;
-    Date expirationDate;
-    String category;
+    private UUID id;
+    private String label;
+    private Date expirationDate;
+    private String category;
 
     public Drug(String label, Date expirationDate, String category) {
         if (isLabelCorrect(label)) {

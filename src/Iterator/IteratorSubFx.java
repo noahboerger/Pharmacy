@@ -3,8 +3,8 @@ package Iterator;
 import Cabinet.ISubCubby;
 
 public class IteratorSubFx implements IIterator {
-    ISubCubby subCubby;
-    int actIndex;
+    private ISubCubby subCubby;
+    private int actIndex;
 
     public IteratorSubFx(ISubCubby subCubby) {
         this.subCubby = subCubby;
@@ -18,19 +18,19 @@ public class IteratorSubFx implements IIterator {
 
     @Override
     public boolean hasNext() {
-        if(subCubby.getDrug(actIndex) != null) {
+        if (subCubby.getDrug(actIndex) != null) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
 
     @Override
     public Object next() {
-        if(subCubby.isEmpty()) {
+        if (subCubby.isEmpty()) {
             return null;
         }
-        if(!hasNext()) {
+        if (!hasNext()) {
             reinitialize();
         }
         actIndex++;

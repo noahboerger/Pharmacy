@@ -20,7 +20,7 @@ public interface ISubCubby {
 
     int numberOfDrugs();
 
-    IIterator iteratorSubCuby();
+    IIterator iteratorSubCubby();
 
     Drug remove(String drugLabel);
 }

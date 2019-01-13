@@ -20,9 +20,6 @@ public interface ICabinet {
 
     IIterator iteratorAll();
 
-    IIterator iteratorFx(char cubbyLabel);
-
-
     boolean isEmpty();
 
     void receive(Reason reason, Object object);

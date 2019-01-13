@@ -9,11 +9,11 @@ import Base.Drug;
 import Cabinet.ICabinet;
 
 public class Pharmacy implements IPharmacy {
-    String name;
-    IPharmacist pharmacist;
-    ICabinet cabinet;
+    private String name;
+    private IPharmacist pharmacist;
+    private ICabinet cabinet;
 
-    Random random;
+    private Random random;
 
 
     public Pharmacy(String name) {
@@ -35,6 +35,7 @@ public class Pharmacy implements IPharmacy {
                     Drug randomDrug = randomDrug(drugLabel0, drugLabel1);
                     testCabinet.add(randomDrug);
                     count++;
+                    //Wahrscheinlichtkeit für SingleOne reduziert, da sonst zu viele Meldungen generiert werden
                     if (Math.abs(random.nextInt()) % 200 != 0) {
                         int duplicates = Math.abs(random.nextInt()) % 4;
                         duplicates++;
@@ -105,26 +106,32 @@ public class Pharmacy implements IPharmacy {
         return new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt())));
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public IPharmacist getPharmacist() {
         return pharmacist;
     }
 
+    @Override
     public void setPharmacist(IPharmacist pharmacist) {
         this.pharmacist = pharmacist;
     }
 
+    @Override
     public ICabinet getCabinet() {
         return cabinet;
     }
 
+    @Override
     public void setCabinet(ICabinet cabinet) {
         this.cabinet = cabinet;
     }

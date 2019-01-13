@@ -20,6 +20,5 @@ public interface ICubby {
 
     void check();
 
-
     int numberOfDrugs();
 }

@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.List;
 
 public class IteratorAll implements IIterator {
-    Cabinet cabinet;
-    List<IIterator> iteratorFxList;
+    private Cabinet cabinet;
+    private List<IIterator> iteratorFxList;
 
 
-    Iterator<IIterator> iteratorFxListIterator;
-    IIterator actFxIterator;
+    private Iterator<IIterator> iteratorFxListIterator;
+    private IIterator actFxIterator;
 
     public IteratorAll(Cabinet cabinet) {
         this.cabinet = cabinet;
@@ -63,7 +63,7 @@ public class IteratorAll implements IIterator {
         if (cabinet.isEmpty()) {
             return null;
         }
-        if(!hasNext()) {
+        if (!hasNext()) {
             reinitialize();
         }
         Object next = actFxIterator.next();

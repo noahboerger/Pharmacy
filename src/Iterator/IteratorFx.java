@@ -8,19 +8,19 @@ import java.util.Iterator;
 import java.util.List;
 
 public class IteratorFx implements IIterator {
-    ICubby cubby;
-    List<IIterator> iteratorSubFxList;
+    private ICubby cubby;
+    private List<IIterator> iteratorSubFxList;
 
 
-    Iterator<IIterator> iteratorSubFxListIterator;
-    IIterator actSubFxIterator;
+    private Iterator<IIterator> iteratorSubFxListIterator;
+    private IIterator actSubFxIterator;
 
     public IteratorFx(ICubby cubby) {
         this.cubby = cubby;
         iteratorSubFxList = new ArrayList<>();
 
         for (char subCubbyKey = 'A'; subCubbyKey <= 'Z'; subCubbyKey++) {
-            iteratorSubFxList.add(cubby.getSubCubby(subCubbyKey).iteratorSubCuby());
+            iteratorSubFxList.add(cubby.getSubCubby(subCubbyKey).iteratorSubCubby());
         }
         iteratorSubFxListIterator = iteratorSubFxList.iterator();
         actSubFxIterator = iteratorSubFxListIterator.next();
@@ -62,12 +62,12 @@ public class IteratorFx implements IIterator {
         if (cubby.isEmpty()) {
             return null;
         }
-        if(!hasNext()) {
+        if (!hasNext()) {
             reinitialize();
         }
-            Object next = actSubFxIterator.next();
-            gotoNext();
-            return next;
+        Object next = actSubFxIterator.next();
+        gotoNext();
+        return next;
 
     }
 }

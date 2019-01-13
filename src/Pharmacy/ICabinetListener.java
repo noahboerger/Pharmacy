@@ -1,6 +1,6 @@
 package Pharmacy;
 
-import Cabinet.Reason;
+import Base.Reason;
 
 public interface ICabinetListener {
     void receive(Reason reason, Object object);

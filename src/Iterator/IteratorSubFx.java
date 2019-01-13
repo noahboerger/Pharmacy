@@ -1,14 +1,12 @@
 package Iterator;
 
-import Cabinet.Cubby;
-import Cabinet.Drug;
-import Cabinet.SubCubby;
+import Cabinet.ISubCubby;
 
 public class IteratorSubFx implements IIterator {
-    SubCubby subCubby;
+    ISubCubby subCubby;
     int actIndex;
 
-    public IteratorSubFx(SubCubby subCubby) {
+    public IteratorSubFx(ISubCubby subCubby) {
         this.subCubby = subCubby;
         actIndex = 0;
     }

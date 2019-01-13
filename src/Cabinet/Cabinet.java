@@ -1,5 +1,7 @@
 package Cabinet;
 
+import Base.Drug;
+import Base.Reason;
 import Iterator.IIterator;
 import Iterator.IteratorAll;
 import Iterator.IteratorFx;
@@ -7,9 +9,8 @@ import Pharmacy.ICabinetListener;
 
 import java.util.*;
 
-public class Cabinet {
-    //Hat cubys
-    private Map<Character, Cubby> cubbyMap;
+public class Cabinet implements ICabinet {
+    private Map<Character, ICubby> cubbyMap;
     private List<ICabinetListener> listeners;
 
 
@@ -21,12 +22,12 @@ public class Cabinet {
         }
     }
 
-    public Cubby getCubby(char key) {
+    public ICubby getCubby(char key) {
         return cubbyMap.get(key);
     }
 
     public boolean add(Drug drug) {
-        if (drug.label == null) {
+        if (drug.getLabel() == null) {
             return false;
         }
         Character key = drug.getLabel().charAt(0);
@@ -37,6 +38,7 @@ public class Cabinet {
         if(!cubbyMap.containsKey(drugLabel.charAt(0))) {
             return null;
         }
+        check();
         return cubbyMap.get(drugLabel.charAt(0)).remove(drugLabel);
     }
 

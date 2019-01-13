@@ -1,11 +1,13 @@
 package Cabinet;
 
+import Base.Drug;
+import Base.Reason;
 import Iterator.IIterator;
 import Iterator.IteratorSubFx;
 
 import java.util.*;
 
-public class SubCubby {
+public class SubCubby implements ISubCubby {
     Drug[] drugs;
     Cubby listeners;
 
@@ -28,6 +30,9 @@ public class SubCubby {
     }
 
     private void checkDoubleDrugs() {
+        if(numberOfDrugs() == 0) {
+            return;
+        }
         String actDrugLabel = drugs[0].getLabel();
         boolean second = false;
         for (int i = 1; i < numberOfDrugs(); i++) {
@@ -78,6 +83,17 @@ public class SubCubby {
         }
     }
 
+    public Drug removeDrug(int index) {
+        if (index >= 0 && index <= 9) {
+            Drug removeDrug = drugs[index];
+            drugs[index] = null;
+            sort();
+            return removeDrug;
+        } else {
+            return null;
+        }
+    }
+
     public boolean isEmpty() {
         if (drugs[0] == null) {
             return true;
@@ -89,8 +105,8 @@ public class SubCubby {
     private void sort() {
        for(int i = 0; i < drugs.length; i++) {
            if(drugs[i] == null) {
-               for(int j = (i +1); j < drugs.length; j++) {
-                   drugs[i] = drugs[j];
+               for(int j = (i + 1); j < drugs.length; j++) {
+                   drugs[j - 1] = drugs[j];
                }
            }
        }
@@ -127,5 +143,10 @@ public class SubCubby {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(drugs);
     }
 }

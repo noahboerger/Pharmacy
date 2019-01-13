@@ -1,15 +1,15 @@
 package Cabinet;
 
+import Base.Drug;
+import Base.Reason;
 import Iterator.IIterator;
 import Iterator.IteratorFx;
-import Iterator.IteratorSubFx;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class Cubby {
-    Map<Character, SubCubby> subCubbyMap;
+public class Cubby implements ICubby {
+    Map<Character, ISubCubby> subCubbyMap;
     Cabinet listener;
 
     public Cubby(Cabinet cabinet) {
@@ -29,7 +29,7 @@ public class Cubby {
         return subCubbyMap.get(key).add(drug);
     }
 
-    public SubCubby getSubCubby(char key) {
+    public ISubCubby getSubCubby(char key) {
         return subCubbyMap.get(key);
     }
 

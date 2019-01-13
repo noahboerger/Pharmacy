@@ -1,24 +1,26 @@
-import Cabinet.Cabinet;
-import Cabinet.Drug;
-import Iterator.IIterator;
-import Iterator.IteratorSubFx;
-import Cabinet.SubCubby;
-import Cabinet.Cubby;
-import Pharmacy.Pharmacy;
+package Base;
 
-import java.util.Arrays;
-import java.util.Date;
+import Iterator.IIterator;
+import Pharmacy.Pharmacy;
+import Pharmacy.IPharmacy;
 
 public class Main {
     public static void main(String args[]) {
 
 
-        Pharmacy ph = new Pharmacy("Test");
+        IPharmacy ph = new Pharmacy("Test");
         IIterator it = ph.getCabinet().iteratorAll();
         while (it.hasNext()) {
             System.out.println(it.next());
         }
         ph.getCabinet().check();
+        ph.getCabinet().getCubby('A').getSubCubby('A').removeDrug(0);
+        ph.getCabinet().getCubby('A').getSubCubby('A').removeDrug(0);
+        ph.getCabinet().getCubby('A').getSubCubby('A').removeDrug(0);
+        ph.getCabinet().getCubby('A').getSubCubby('A').removeDrug(0);
+        ph.getCabinet().check();
+        System.out.println(ph.getCabinet().getCubby('A').getSubCubby('A'));
+
 
         /*Cabinet cabinet = new Cabinet();
         cabinet.add(new Drug("AA293", new Date(1, 2, 3), "Test"));

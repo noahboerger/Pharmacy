@@ -1,6 +1,6 @@
 package Iterator;
 
-import Cabinet.Cubby;
+import Cabinet.ICubby;
 
 import javax.swing.text.html.HTMLDocument;
 import java.util.ArrayList;
@@ -8,14 +8,14 @@ import java.util.Iterator;
 import java.util.List;
 
 public class IteratorFx implements IIterator {
-    Cubby cubby;
+    ICubby cubby;
     List<IIterator> iteratorSubFxList;
 
 
     Iterator<IIterator> iteratorSubFxListIterator;
     IIterator actSubFxIterator;
 
-    public IteratorFx(Cubby cubby) {
+    public IteratorFx(ICubby cubby) {
         this.cubby = cubby;
         iteratorSubFxList = new ArrayList<>();
 

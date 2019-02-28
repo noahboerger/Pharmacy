@@ -1,4 +1,4 @@
-import composite.Cabinet;
+import base.Cabinet;
 import composite.DrugUnit;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,6 +12,7 @@ public class Tests {
     public void testIteratorAll() {
         //Da der IteratorAll über IteratorFx läuft, werden diese direkt mitgetestet
         //Deshalb sind hier nicht mehr Tests für die Iterator notwendig
+        //Ebenso wird das ganze Cabinet direkt mitgetestet
         Cabinet cabinet = testCabinet();
         DrugUnit one = testDrugOne();
         DrugUnit two = testDrugTwo();

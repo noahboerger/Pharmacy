@@ -1,5 +1,8 @@
-package composite;
+package base;
 
+import composite.CabinetArea;
+import composite.CabinetUnit;
+import composite.DrugUnit;
 import iterator.IteratorAll;
 import iterator.IteratorFx;
 import pharmacy.ICabinetListener;
@@ -32,11 +35,11 @@ public class Cabinet implements ICabinet {
 
     @Override
     public boolean addDrugUnit(DrugUnit drugUnit) {
-        for (CabinetUnit cubby : cabinetRoot.units) {
-            if (cubby.unitName.equals(drugUnit.unitName.charAt(0) + "")) {
-                for (CabinetUnit subCubby : cubby.units) {
-                    if (subCubby.unitName.equals(drugUnit.unitName.charAt(1) + "")) {
-                        if (subCubby.units.size() < 10) {
+        for (CabinetUnit cubby : cabinetRoot.getUnits()) {
+            if (cubby.getUnitName().equals(drugUnit.getUnitName().charAt(0) + "")) {
+                for (CabinetUnit subCubby : cubby.getUnits()) {
+                    if (subCubby.getUnitName().equals(drugUnit.getUnitName().charAt(1) + "")) {
+                        if (subCubby.getUnits().size() < 10) {
                             subCubby.addUnit(drugUnit);
                             return true;
                         }
@@ -49,14 +52,14 @@ public class Cabinet implements ICabinet {
 
     @Override
     public DrugUnit removeDrugUnit(String drugUnitLabel) {
-        for (CabinetUnit cubby : cabinetRoot.units) {
-            if (cubby.unitName.equals(drugUnitLabel.charAt(0) + "")) {
-                for (CabinetUnit subCubby : cubby.units) {
-                    if (subCubby.unitName.equals(drugUnitLabel.charAt(1) + ""))
-                        for (CabinetUnit drugUnit : subCubby.units) {
-                            if (drugUnit.unitName.equals(drugUnitLabel)) {
+        for (CabinetUnit cubby : cabinetRoot.getUnits()) {
+            if (cubby.getUnitName().equals(drugUnitLabel.charAt(0) + "")) {
+                for (CabinetUnit subCubby : cubby.getUnits()) {
+                    if (subCubby.getUnitName().equals(drugUnitLabel.charAt(1) + ""))
+                        for (CabinetUnit drugUnit : subCubby.getUnits()) {
+                            if (drugUnit.getUnitName().equals(drugUnitLabel)) {
                                 DrugUnit removeDrugUnit = (DrugUnit) drugUnit;
-                                subCubby.units.remove(removeDrugUnit);
+                                subCubby.getUnits().remove(removeDrugUnit);
                                 return (DrugUnit) drugUnit;
                             }
                         }
@@ -73,8 +76,8 @@ public class Cabinet implements ICabinet {
 
     @Override
     public Iterator iteratorFx(char key) {
-        for (CabinetUnit cubby : cabinetRoot.units) {
-            if (cubby.unitName.equals(key + "")) {
+        for (CabinetUnit cubby : cabinetRoot.getUnits()) {
+            if (cubby.getUnitName().equals(key + "")) {
                 return new IteratorFx(cubby);
             }
         }

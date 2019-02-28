@@ -1,5 +1,7 @@
-package composite;
+package base;
 
+import composite.CabinetUnit;
+import composite.DrugUnit;
 import pharmacy.ICabinetListener;
 
 import java.util.Iterator;

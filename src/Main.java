@@ -15,7 +15,7 @@ public class Main {
         System.out.println(it.next());
         System.out.println();
 
-        //Entfernen eines Medikaments, um zu testen ob eine Meldung generiert wird, wenn ein Teil des Schrankes schlecht bestückt ist
+        //Entfernen von Medikamenten, um zu testen ob eine Meldung generiert wird, wenn ein Teil des Schrankes schlecht bestückt ist
         for (int i = 0; i < 5; i++) {
             String removal = pharmacy.getCabinet().getCabinetRoot().listUnits().next().listUnits().next().listUnits().next().getUnitName();
             System.out.println("Removing drug: " + removal);

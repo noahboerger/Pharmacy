@@ -1,8 +1,8 @@
 package pharmacy;
 
-import composite.Cabinet;
+import base.Cabinet;
 import composite.DrugUnit;
-import composite.ICabinet;
+import base.ICabinet;
 
 import java.util.Date;
 import java.util.Random;

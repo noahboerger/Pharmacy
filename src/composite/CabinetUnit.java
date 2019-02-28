@@ -18,7 +18,11 @@ public abstract class CabinetUnit {
         this.unitName = unitName;
     }
 
-    abstract void check(List<ICabinetListener> listeners);
+    public abstract void check(List<ICabinetListener> listeners);
+
+    public List<CabinetUnit> getUnits() {
+        return units;
+    }
 
     public String getUnitName() {
         return unitName;

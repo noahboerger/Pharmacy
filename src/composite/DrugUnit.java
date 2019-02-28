@@ -46,7 +46,7 @@ public class DrugUnit extends CabinetUnit {
     }
 
     @Override
-    void check(List<ICabinetListener> listeners) {
+    public void check(List<ICabinetListener> listeners) {
         if (expirationDate.before(new Date(System.currentTimeMillis()))) {
             for (ICabinetListener listener : listeners) {
                 listener.receive(this, Reason.EXPIRATION_DATE);

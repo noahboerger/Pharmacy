@@ -13,7 +13,7 @@ public class CabinetArea extends CabinetUnit {
     }
 
     @Override
-    void check(List<ICabinetListener> listeners) {
+    public void check(List<ICabinetListener> listeners) {
         checkCabinetArea(listeners);
         for (CabinetUnit unit : units) {
             unit.check(listeners);

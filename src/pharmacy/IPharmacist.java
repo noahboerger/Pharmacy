@@ -1,4 +1,4 @@
-package Pharmacy;
+package pharmacy;
 
 public interface IPharmacist extends ICabinetListener {
     String getName();

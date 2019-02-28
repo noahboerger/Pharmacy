@@ -1,6 +1,7 @@
-package Pharmacy;
+package pharmacy;
 
-import Base.Reason;
+import base.Reason;
+import composite.CabinetUnit;
 
 public class Pharmacist implements ICabinetListener, IPharmacist {
 
@@ -11,8 +12,8 @@ public class Pharmacist implements ICabinetListener, IPharmacist {
     }
 
     @Override
-    public void receive(Reason reason, Object object) {
-        System.out.println("Received=(" + reason + " " + object + ")");
+    public void receive(CabinetUnit unit, Reason reason) {
+        System.out.println("Received=(" + reason + " " + unit + ")");
     }
 
     @Override

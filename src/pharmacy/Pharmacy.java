@@ -1,47 +1,58 @@
-package Pharmacy;
+package pharmacy;
 
-import Cabinet.Cabinet;
+import composite.Cabinet;
+import composite.DrugUnit;
+import composite.ICabinet;
 
 import java.util.Date;
 import java.util.Random;
 
-import Base.Drug;
-import Cabinet.ICabinet;
-
 public class Pharmacy implements IPharmacy {
+
+    private ICabinet cabinet;
+
     private String name;
     private IPharmacist pharmacist;
-    private ICabinet cabinet;
 
     private Random random;
 
-
-    public Pharmacy(String name) {
+    public Pharmacy() {
         random = new Random();
+        cabinet = initializeTestCabinet();
         this.name = name;
         cabinet = initializeTestCabinet();
         pharmacist = new Pharmacist("Paul");
         cabinet.registerListener(pharmacist);
     }
 
-    private ICabinet initializeTestCabinet() {
-        ICabinet testCabinet = new Cabinet();
+    @Override
+    public ICabinet getCabinet() {
+        return cabinet;
+    }
+
+    @Override
+    public void setCabinet(ICabinet cabinet) {
+        this.cabinet = cabinet;
+    }
+
+    private Cabinet initializeTestCabinet() {
+        Cabinet testCabinet = new Cabinet();
 
         int count = 0;
         for (char drugLabel0 = 'A'; drugLabel0 <= 'Z'; drugLabel0++) {
             for (char drugLabel1 = 'A'; drugLabel1 <= 'Z'; drugLabel1++) {
                 count = 0;
                 while (count < 5) {
-                    Drug randomDrug = randomDrug(drugLabel0, drugLabel1);
-                    testCabinet.add(randomDrug);
+                    DrugUnit randomDrug = randomDrug(drugLabel0, drugLabel1);
+                    testCabinet.addDrugUnit(randomDrug);
                     count++;
                     //Wahrscheinlichtkeit für SingleOne reduziert, da sonst zu viele Meldungen generiert werden
                     if (Math.abs(random.nextInt()) % 200 != 0) {
                         int duplicates = Math.abs(random.nextInt()) % 4;
                         duplicates++;
                         while (duplicates != 0) {
-                            Drug add = new Drug(randomDrug.getLabel(), randomDate(), randomDrug.getCategory());
-                            testCabinet.add(add);
+                            DrugUnit add = new DrugUnit(randomDrug.getLabel(), randomDate(), randomDrug.getCategory());
+                            testCabinet.addDrugUnit(add);
                             duplicates--;
                             count++;
                         }
@@ -52,7 +63,7 @@ public class Pharmacy implements IPharmacy {
         return testCabinet;
     }
 
-    private Drug randomDrug(char firstLabelChar, char secondLabelChar) {
+    private DrugUnit randomDrug(char firstLabelChar, char secondLabelChar) {
         char[] randomDrugLabel = new char[5];
         randomDrugLabel[0] = firstLabelChar;
         randomDrugLabel[1] = secondLabelChar;
@@ -99,11 +110,12 @@ public class Pharmacy implements IPharmacy {
                 randomCategory = "none";
                 break;
         }
-        return new Drug(randomDrugLabelString, randomDate(), randomCategory);
+        return new DrugUnit(randomDrugLabelString, randomDate(), randomCategory);
     }
 
     private Date randomDate() {
-        return new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt())));
+        //Geringe Wahrscheinlichkeit, dass abgelaufen
+        return new Date(Math.abs(System.currentTimeMillis() + Math.abs(random.nextInt())) - (10 * 60 * 60 * 24 * 3));
     }
 
     @Override
@@ -124,15 +136,5 @@ public class Pharmacy implements IPharmacy {
     @Override
     public void setPharmacist(IPharmacist pharmacist) {
         this.pharmacist = pharmacist;
-    }
-
-    @Override
-    public ICabinet getCabinet() {
-        return cabinet;
-    }
-
-    @Override
-    public void setCabinet(ICabinet cabinet) {
-        this.cabinet = cabinet;
     }
 }

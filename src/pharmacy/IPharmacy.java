@@ -1,6 +1,6 @@
-package Pharmacy;
+package pharmacy;
 
-import Cabinet.ICabinet;
+import composite.ICabinet;
 
 public interface IPharmacy {
     String getName();
